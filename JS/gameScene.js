@@ -1,3 +1,9 @@
+// Copyright (c) 2020 Mr. Coxall All rights reserved
+//
+// Created by: Sasha. Vorontsov
+// Created on: April 29th
+// This file contains the JS functions for index.html
+
 class GameScene extends Phaser.Scene {
   createBadniks () {
     const badnikXLocation = Math.floor(Math.random() * 1920) + 1
@@ -28,7 +34,7 @@ class GameScene extends Phaser.Scene {
 
     // image
     this.load.image("starBackground", "assets/starBackground.png")
-    this.load.image("ship", "assets/spaceShip.png")
+    this.load.image("character", "assets/character1.png")
     this.load.image("missile", "assets/missile.png")
     this.load.image("alien", "assets/alien.png")
     // sound
@@ -49,6 +55,11 @@ class GameScene extends Phaser.Scene {
     this.badnikGroup = this.add.group()
     this.createBadnik()
 
+    sprite = this.add.sprite(400, 300, "character");
+    sprite.setOrigin(0.5);
+
+    cursors = this.input.keyboard.createCursorKeys();
+
     this.physics.add.collider(this.missileGroup, this.badnikGroup, function (missileCollide, badnikCollide) {
       badnikCollide.destroy()
       missileCollide.destroy()
@@ -68,17 +79,10 @@ class GameScene extends Phaser.Scene {
     const keyDownObj = this.input.keyboard.addKey("DOWN")
     const keySpaceObj = this.input.keyboard.addKey("SPACE")
 
-  if (keyLeftObj.isDown === true) {
-    this.ship.x -= 15
-    if (this.ship.x < 0) {
-      this.ship.x = 0
-    }
-  }
-  
-  if (keyRightObj.isDown === true) {
-    this.ship.x += 15
-    if (this.ship.x > 1440) {
-      this.ship.x = 1440
+  if (keyDownObj.isDown === true) {
+    this.ship.y -= 15
+    if (this.ship.y < 0) {
+      this.ship.y = 0
     }
   }
   
@@ -88,14 +92,13 @@ class GameScene extends Phaser.Scene {
       this.ship.y = 1440
     }
   }
-
-  if (keyDownObj.isDown === true) {
-    this.ship.y -= 15
-    if (this.ship.y > 1440) {
-      this.ship.y = 1440
-    }
-  }
   
+  if (keyLeftObj.isDown) {
+    this.sprite.angle -= 2;
+  } else if (keyRightObj.isDown) {
+    this.sprite.angle += 2;
+  }
+
   if (keySpaceObj.isDown === true) {
     if (this.fireMissile === false) {
       this.fireMissile = true
