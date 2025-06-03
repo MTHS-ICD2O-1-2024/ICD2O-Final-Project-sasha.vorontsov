@@ -10,6 +10,7 @@ class MenuScene extends Phaser.Scene {
 
     this.menuSceneBackgroundImage = null
     this.startButton = null
+
   }
 
   init (data) {
@@ -18,9 +19,10 @@ class MenuScene extends Phaser.Scene {
 
   preload () {
     console.log('Menu Scene')
-    this.load.image("menuSceneBackground", "assets/.jpg")
-    this.load.image("startButton", "assets/start.png")
-    this.load.image("optionButton", "assets/start.png")
+    this.load.image("menuSceneBackground", "assets/blue_and_red_galaxy_screen_image.png")
+    this.load.image("startButton", "assets/drive.png")
+    this.load.image("optionButton", "assets/options.png")
+    this.load.audio("menuMusic", "assets/menusong1.mp3")
   }
 
   create (data) {
@@ -28,22 +30,27 @@ class MenuScene extends Phaser.Scene {
     this.splashSceneBackgroundImage.x = 1440 / 2
     this.splashSceneBackgroundImage.y = 1080 / 2
 
-    this.startButton = this.add.sprite(1440 / 2, (1440 / 2) + 100, "startButton")
+    this.startButton = this.add.sprite(1440 / 2, (1080 / 2) + 540, "startButton")
     this.startButton.setInteractive({ useHandCursor: true })
     this.startButton.on("pointerdown", () => this.clickButton())
 
-    this.optionButton = this.add.sprite(1440 / 2, (1440 / 2) + 100, "optionButton")
+    this.optionButton = this.add.sprite(1440 / 2, (1080 / 2) + 700, "optionButton")
     this.optionButton.setInteractive({ useHandCursor: true })
     this.optionButton.on("pointerdown", () => this.clickoptionButton())
 
-    this.menuMsuic =  this.sound.add("menuMusic", {
-    loop: true,
-    volume: 0.5
-    });
+    this.musicButton = this.add.sprite(1440 / 2, (1080 / 2) + 100, "startButton")
+    this.musicButton.setInteractive({ useHandCursor: true })
+    this.musicButton.on("pointerdown", () => {
     this.menuMusic.play();
 
     this.menuMusic.stop();
     this.scene.start("gameScene");
+    });
+
+    this.menuMusic =  this.sound.add("menuMusic", {
+    loop: true,
+    volume: 0.5
+    });
   }
 
   update (time,delta) {
