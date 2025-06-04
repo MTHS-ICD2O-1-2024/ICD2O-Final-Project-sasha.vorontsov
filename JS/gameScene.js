@@ -33,27 +33,28 @@ class GameScene extends Phaser.Scene {
     console.log("Game Scene")
 
     // image
-    this.load.image("starBackground", "assets/starBackground.png")
+    this.load.image("firstMap", "assets/windmillisle_background.jpg")
     this.load.image("character", "assets/character1.png")
     this.load.image("missile", "assets/missile.png")
-    this.load.image("alien", "assets/alien.png")
+    this.load.image("badnik", "assets/badnik1.png")
     // sound
     this.load.audio("laser", "assets/laser1.wav")
     this.load.audio("explosion", "assets/barrelExploding.wav")
   }
 
   create (data) {
-    this.background = this.add.image(0, 0, "starBackground").setScale(2.0)
+    this.background = this.add.image(0, 0, "firstMap").setScale(0.5)
     this.background.setOrigin(0, 0)
 
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
 
-    this.ship = this.physics.add.sprite(1444 / 2, 1440 - 100, "ship")
+    this.character = this.physics.add.sprite(1444 / 2, 1440 - 100, "character")
 
     this.missileGroup = this.physics.add.group()
 
-    this.badnikGroup = this.add.group()
-    this.createBadnik()
+    this.badnikGroup = this.physics.add.group()
+    
+    this.createBadnik();
 
     sprite = this.add.sprite(400, 300, "character");
     sprite.setOrigin(0.5);

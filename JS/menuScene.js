@@ -30,15 +30,15 @@ class MenuScene extends Phaser.Scene {
     this.splashSceneBackgroundImage.x = 1440 / 2
     this.splashSceneBackgroundImage.y = 1080 / 2
 
-    this.startButton = this.add.sprite(1440 / 2, (1080 / 2) + 540, "startButton")
+    this.startButton = this.add.sprite(1440 / 2, (1080 / 2) + 840, "startButton")
     this.startButton.setInteractive({ useHandCursor: true })
     this.startButton.on("pointerdown", () => this.clickButton())
 
-    this.optionButton = this.add.sprite(1440 / 2, (1080 / 2) + 700, "optionButton")
+    this.optionButton = this.add.sprite(1440 / 2, (1080 / 2) + 650, "optionButton")
     this.optionButton.setInteractive({ useHandCursor: true })
     this.optionButton.on("pointerdown", () => this.clickoptionButton())
 
-    this.musicButton = this.add.sprite(1440 / 2, (1080 / 2) + 100, "startButton")
+    this.musicButton = this.add.sprite(1440 / 2, (1080 / 2) + 100, "musicButton")
     this.musicButton.setInteractive({ useHandCursor: true })
     this.musicButton.on("pointerdown", () => {
     this.menuMusic.play();
