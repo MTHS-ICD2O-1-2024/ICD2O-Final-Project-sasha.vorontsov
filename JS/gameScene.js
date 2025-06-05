@@ -5,14 +5,15 @@
 // This file contains the JS functions for index.html
 
 class GameScene extends Phaser.Scene {
-  createBadniks () {
-    const badnikXLocation = Math.floor(Math.random() * 1920) + 1
-    let badnikXVelocity = Math.floor(Math.random() * 50) + 1
-    badnikXVelocity *= Math.round(Math.random()) ? 1 : -1
-    const anBadnik = this.physics.add.sprite(badnikXLocation, 100, "badnik")
-    anBadnik.body.velocity.y = 200
-    anBadnik.body.velocity.x = badnikXVelocity
-    this.badnikGroup.add(anBadnik)
+  createBadnik () {
+    for (let i =0; i < 5; i++) {
+      const x = 800 + i * 100;
+      const y = Phaser.Math.Between(100, 400);
+      const badnik = this.badnikGroup.create(x, y, "badnik");
+      badnik.setVelocityX(-100);
+      badnik.setCollideWorldBounds(true);
+      badnik.setBounce(1);
+    }
   }
   constructor () {
     super({ key: "gameScene" })
@@ -43,12 +44,12 @@ class GameScene extends Phaser.Scene {
   }
 
   create (data) {
-    this.background = this.add.image(0, 0, "firstMap").setScale(0.5)
+    this.background = this.add.image(0, 0, "firstMap").setScale(1.0)
     this.background.setOrigin(0, 0)
 
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
 
-    this.character = this.physics.add.sprite(1444 / 2, 1440 - 100, "character")
+    this.character = this.physics.add.sprite(1440 / 2, 1440 - 100, "character")
 
     this.missileGroup = this.physics.add.group()
 
@@ -56,8 +57,8 @@ class GameScene extends Phaser.Scene {
     
     this.createBadnik();
 
-    sprite = this.add.sprite(400, 300, "character");
-    sprite.setOrigin(0.5);
+    character = this.add.sprite(400, 300, "character");
+    character.setOrigin(0.5);
 
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -67,8 +68,8 @@ class GameScene extends Phaser.Scene {
       this.sound.play("explosion")
       this.score = this.score + 1
       this.scoreText.setText("Score: " + this.score.toString())
-      this.createBadnik()
-      this.createBadnik()
+    this.createBadnik()
+    this.createBadnik()
     }.bind(this))
   }  
 
@@ -81,29 +82,29 @@ class GameScene extends Phaser.Scene {
     const keySpaceObj = this.input.keyboard.addKey("SPACE")
 
   if (keyDownObj.isDown === true) {
-    this.ship.y -= 15
-    if (this.ship.y < 0) {
-      this.ship.y = 0
+    this.character.y -= 15
+    if (this.character.y < 0) {
+      this.character.y = 0
     }
   }
   
   if (keyUpObj.isDown === true) {
-    this.ship.y += 15
-    if (this.ship.y > 1440) {
-      this.ship.y = 1440
+    this.character.y += 15
+    if (this.character.y > 1440) {
+      this.character.y = 1440
     }
   }
   
   if (keyLeftObj.isDown) {
-    this.sprite.angle -= 2;
+    this.character.angle -= 2;
   } else if (keyRightObj.isDown) {
-    this.sprite.angle += 2;
+    this.character.angle += 2;
   }
 
   if (keySpaceObj.isDown === true) {
     if (this.fireMissile === false) {
       this.fireMissile = true
-      const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, "missile")
+      const aNewMissile = this.physics.add.sprite(this.character.x, this.character.y, "missile")
       this.missileGroup.add(aNewMissile)
       this.sound.play("laser")
     }

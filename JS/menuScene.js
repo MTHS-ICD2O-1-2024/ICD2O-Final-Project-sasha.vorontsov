@@ -10,6 +10,7 @@ class MenuScene extends Phaser.Scene {
 
     this.menuSceneBackgroundImage = null
     this.startButton = null
+    this.optionButton = null
 
   }
 
