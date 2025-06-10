@@ -57,11 +57,6 @@ class GameScene extends Phaser.Scene {
     
     this.createBadnik();
 
-    character = this.add.sprite(400, 300, "character");
-    character.setOrigin(0.5);
-
-    cursors = this.input.keyboard.createCursorKeys();
-
     this.physics.add.collider(this.missileGroup, this.badnikGroup, function (missileCollide, badnikCollide) {
       badnikCollide.destroy()
       missileCollide.destroy()
