@@ -43,6 +43,13 @@ class GameScene extends Phaser.Scene {
     this.load.audio("explosion", "assets/barrelExploding.wav")
   }
 
+  createSingleBadnik () {
+    const x = 800 + Phaser.Math.Between(0, 300)
+    const y = Phaser.Math.Between(100, 400)
+    const badnik = this.badnikGroup.create(x, y, "badnik")
+    badnik.setVelocityX(-100)
+  }
+
   create (data) {
     this.background = this.add.image(0, 0, "firstMap").setScale(1.0)
     this.background.setOrigin(0, 0)
@@ -111,11 +118,14 @@ class GameScene extends Phaser.Scene {
   }
 
   if (keySpaceObj.isDown === true) {
-    if (this.fireMissile === false) {
+    if (!this.fireMissile === false) {
       this.fireMissile = true
       const aNewMissile = this.physics.add.sprite(this.character.x, this.character.y, "missile")
       this.missileGroup.add(aNewMissile)
       this.sound.play("laser")
+
+      const angleRad = Phaser.Math.DegToRad(this.character.angle - 90)
+      aNewMissile.setVelocity(Math.cos(angleRad) * 400, Math.sin(angleRad) * 400)
     }
   }
 
@@ -127,6 +137,12 @@ class GameScene extends Phaser.Scene {
       item.y = item.y - 15
       if (item.y < 0) {
         item.destroy()
+      }
+    })
+    
+    this.badnikGroup.children.each(function (badnik) {
+      if (badnik.x < -50) {
+        badnik.destroy()
       }
     })
   }
