@@ -49,7 +49,7 @@ class GameScene extends Phaser.Scene {
 
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
 
-    this.character = this.physics.add.sprite(1440 / 2, 1440 - 100, "character")
+    this.character = this.physics.add.sprite(1440 / 2, 1440 - 100, "character").setScale(0.5)
 
     this.missileGroup = this.physics.add.group()
 
@@ -77,19 +77,33 @@ class GameScene extends Phaser.Scene {
     const keySpaceObj = this.input.keyboard.addKey("SPACE")
 
   if (keyDownObj.isDown === true) {
-    this.character.y -= 15
+    this.character.y += 15
     if (this.character.y < 0) {
       this.character.y = 0
     }
   }
   
   if (keyUpObj.isDown === true) {
-    this.character.y += 15
+    this.character.y -= 15
     if (this.character.y > 1440) {
       this.character.y = 1440
     }
   }
   
+  if (keyLeftObj.isDown === true) {
+    this.character.x -= 15
+    if (this.character.x > 1440) {
+      this.character.x = 1440
+    }
+  }
+
+  if (keyRightObj.isDown === true) {
+    this.character.x += 15
+    if (this.character.x > 1440) {
+      this.character.x = 1440
+    }
+  }
+
   if (keyLeftObj.isDown) {
     this.character.angle -= 2;
   } else if (keyRightObj.isDown) {
