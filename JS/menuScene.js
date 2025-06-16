@@ -31,7 +31,7 @@ class MenuScene extends Phaser.Scene {
     this.splashSceneBackgroundImage.x = 1440 / 2
     this.splashSceneBackgroundImage.y = 1080 / 2
 
-    this.startButton = this.add.sprite(1440 / 2, (1080 / 2) + 840, "startButton")
+    this.startButton = this.add.sprite(1440 / 2, (1080 / 2) + 40, "startButton")
     this.startButton.setInteractive({ useHandCursor: true })
     this.startButton.on("pointerdown", () => this.clickButton())
 
