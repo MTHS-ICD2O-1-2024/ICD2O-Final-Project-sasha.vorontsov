@@ -21,7 +21,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: true, // Turn on hitbox visualization
+      debug: false, // Turn on hitbox visualization
       gravity: { y: 0 } // (optional) to make sure things don't fall
     }
   },
